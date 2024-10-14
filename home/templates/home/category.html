@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<link rel="stylesheet" href="{% static 'css/category.css' %}">
+</head>
+<body>
+<ul id="menu">
+	{% for category in categories %}
+		{% if not category.parent %}
+	<li class="parent"><a href="#">{{ category.title }}</a>
+		{% if category.subs.all %}
+		<ul class="child">
+			{% for category in category.subs.all %}
+			<li class="parent"><a href="#">{{ category.title }}<span class="expand">»</span></a>
+				<ul class="child">
+					{% for category in category.subs.all %}
+					<li class="parent"><a href="#">{{ category.title }}<span class="expand">»</span></a>
+					</li>
+					{% endfor %}
+					
+				</ul>
+			</li>
+			{% endfor %}
+			
+		</ul>
+		{% endif %}
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</body>
+</html>
